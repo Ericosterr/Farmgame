@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import GameDashboard from "./components/GameDashboard";
+import GameDashboard3D from "./components/GameDashboard3D";
 import Shop from "./components/Shop";
 import Profile from "./components/Profile";
 import Leaderboard from "./components/Leaderboard";
@@ -19,7 +19,7 @@ function App() {
   const renderCurrentView = () => {
     switch (currentView) {
       case "game":
-        return <GameDashboard gameState={gameState} updateGameState={updateGameState} />;
+        return <GameDashboard3D gameState={gameState} updateGameState={updateGameState} />;
       case "shop":
         return <Shop gameState={gameState} updateGameState={updateGameState} />;
       case "profile":
@@ -27,7 +27,7 @@ function App() {
       case "leaderboard":
         return <Leaderboard gameState={gameState} />;
       default:
-        return <GameDashboard gameState={gameState} updateGameState={updateGameState} />;
+        return <GameDashboard3D gameState={gameState} updateGameState={updateGameState} />;
     }
   };
 
@@ -40,7 +40,7 @@ function App() {
             <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">🌱</span>
             </div>
-            <h1 className="text-lg font-bold text-gray-800">GrowBox Farm</h1>
+            <h1 className="text-lg font-bold text-gray-800">GrowBox Farm 3D</h1>
           </div>
           <div className="flex items-center gap-4 text-sm">
             <div className="flex items-center gap-1">
