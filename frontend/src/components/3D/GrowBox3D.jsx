@@ -7,17 +7,17 @@ import { plantTypes } from '../../data/mockData';
 // Growbox Component
 function GrowboxMesh({ size = 1, level = 1 }) {
   const meshRef = useRef();
-  
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.1) * 0.01;
-    }
-  });
 
   return (
     <group ref={meshRef}>
-      {/* Main Growbox Structure */}
+      {/* Main Growbox Structure - Floor */}
       <mesh position={[0, -0.5, 0]}>
+        <boxGeometry args={[4, 0.1, 3]} />
+        <meshStandardMaterial color="#2a2a2a" metalness={0.8} roughness={0.2} />
+      </mesh>
+      
+      {/* Roof */}
+      <mesh position={[0, 1.5, 0]}>
         <boxGeometry args={[4, 0.1, 3]} />
         <meshStandardMaterial color="#2a2a2a" metalness={0.8} roughness={0.2} />
       </mesh>
@@ -35,9 +35,17 @@ function GrowboxMesh({ size = 1, level = 1 }) {
         <boxGeometry args={[4, 2, 0.1]} />
         <meshStandardMaterial color="#1a1a1a" metalness={0.7} roughness={0.3} />
       </mesh>
+      
+      {/* Front Wall - Transparent/Glass for viewing */}
       <mesh position={[0, 0.5, 1.5]}>
-        <boxGeometry args={[4, 2, 0.1]} />
-        <meshStandardMaterial color="#1a1a1a" metalness={0.7} roughness={0.3} />
+        <boxGeometry args={[4, 2, 0.05]} />
+        <meshStandardMaterial 
+          color="#ffffff" 
+          metalness={0.1} 
+          roughness={0.1} 
+          transparent={true}
+          opacity={0.3}
+        />
       </mesh>
 
       {/* Interior Reflective Surface */}
@@ -51,28 +59,44 @@ function GrowboxMesh({ size = 1, level = 1 }) {
         />
       </mesh>
 
-      {/* LED Light Bar */}
-      <mesh position={[0, 1.4, 0]}>
+      {/* LED Light Bar - Mounted on roof */}
+      <mesh position={[0, 1.3, 0]}>
         <boxGeometry args={[3.5, 0.1, 0.3]} />
         <meshStandardMaterial 
           color="#4a4a4a" 
           metalness={0.8} 
           roughness={0.2} 
           emissive="#ffffff"
-          emissiveIntensity={0.3}
+          emissiveIntensity={0.4}
         />
       </mesh>
 
-      {/* Exhaust Fan */}
-      <mesh position={[1.8, 1.2, -1.4]}>
+      {/* LED Light Strips */}
+      <mesh position={[0, 1.25, 0]}>
+        <boxGeometry args={[3.2, 0.02, 0.1]} />
+        <meshStandardMaterial 
+          color="#ffffff" 
+          emissive="#ffffff"
+          emissiveIntensity={0.8}
+        />
+      </mesh>
+
+      {/* Exhaust Fan - On roof */}
+      <mesh position={[1.5, 1.5, -1.2]}>
         <cylinderGeometry args={[0.15, 0.15, 0.1]} />
         <meshStandardMaterial color="#333" metalness={0.7} roughness={0.3} />
       </mesh>
 
-      {/* Filter System */}
-      <mesh position={[-1.8, 1.2, -1.4]}>
-        <cylinderGeometry args={[0.2, 0.2, 0.3]} />
+      {/* Filter System - On roof */}
+      <mesh position={[-1.5, 1.5, -1.2]}>
+        <cylinderGeometry args={[0.2, 0.2, 0.2]} />
         <meshStandardMaterial color="#555" metalness={0.6} roughness={0.4} />
+      </mesh>
+
+      {/* Control Panel */}
+      <mesh position={[1.8, 0, 1.4]}>
+        <boxGeometry args={[0.3, 0.4, 0.05]} />
+        <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.3} />
       </mesh>
     </group>
   );
